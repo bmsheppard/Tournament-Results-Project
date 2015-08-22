@@ -17,7 +17,8 @@ def deleteMatches():
     cursor.execute("DELETE FROM Matches")
     db.commit()
     cursor.close()
-    db.close();
+    db.close()
+
 def deletePlayers():
     """Remove all the player records from the database."""
     db = connect()
@@ -36,6 +37,7 @@ def countPlayers():
     cursor.close()
     db.close()
     return numPlayers
+
 def registerPlayer(name):
     """Adds a player to the tournament database.
 
@@ -45,7 +47,6 @@ def registerPlayer(name):
     Args:
       name: the player's full name (need not be unique).
     """
-
     db = connect()
     cursor = db.cursor()
     cursor.execute("INSERT INTO Players(name) VALUES (%s)", (name,))
@@ -72,6 +73,7 @@ def playerStandings():
     db.commit()
     db.close()
     return numRows
+
 def reportMatch(winner, loser):
     """Records the outcome of a single match between two players.
 
@@ -86,8 +88,6 @@ def reportMatch(winner, loser):
     db.commit()
     db.close()
 
- 
- 
 def swissPairings():
     """Returns a list of pairs of players for the next round of a match.
   
@@ -119,6 +119,3 @@ def swissPairings():
         i = i + 2
 
     return matches
-    
-
-
