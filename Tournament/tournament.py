@@ -14,7 +14,7 @@ def deleteMatches():
     """Remove all the match records from the database."""
     db = connect()
     cursor = db.cursor()
-    cursor.execute("DELETE FROM Matches")
+    cursor.execute("DELETE FROM Matches") #Deletes all saved data from the Matches table
     db.commit()
     cursor.close()
     db.close()
@@ -23,7 +23,7 @@ def deletePlayers():
     """Remove all the player records from the database."""
     db = connect()
     cursor = db.cursor()
-    cursor.execute("DELETE FROM Players")
+    cursor.execute("DELETE FROM Players") #Deletes all saved data from the Players table
     db.commit()
     cursor.close()
     db.close()
@@ -32,7 +32,7 @@ def countPlayers():
     """Returns the number of players currently registered."""
     db = connect()
     cursor = db.cursor()
-    cursor.execute("SELECT count(*) AS num FROM Players")
+    cursor.execute("SELECT count(*) AS num FROM Players") #Counts all players from the Players table
     numPlayers = cursor.fetchone()[0]
     cursor.close()
     db.close()
@@ -104,18 +104,18 @@ def swissPairings():
         name2: the second player's name
     """
     db = connect()
-    cursor = db.cursor()
+    cursor = db.cursor() 
     cursor.execute("SELECT id, name, numWins, numMatches FROM playerStandings ORDER BY numWins DESC;")
     playerTable = cursor.fetchall()
     db.close()
-    i = 0
-    matches = []
+    i = 0 #Starts counter at 0 so the pairing works properly
+    matches = [] #Creates an array called matches that keeps track of the pairings
     while i< len(playerTable):
         player1_id = playerTable[i][0]
-        player1_name = playerTable[i][1]
+        player1_name = playerTable[i][1] #Adds the name and id of the player with the most of amount of wins to the array
         player2_id = playerTable[i+1][0]
-        player2_name = playerTable[i+1][1]
+        player2_name = playerTable[i+1][1] #Adds the name and id of the player with the next highest number of wins to the array
         matches.append((player1_id, player1_name, player2_id, player2_name))
-        i = i + 2
+        i = i + 2 #Adding 2 to the counter skips the players that have already been paired and looks at the next two players with the highest number of wins
 
     return matches
